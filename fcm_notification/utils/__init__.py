@@ -22,9 +22,31 @@ class FCMNotification:
 		cred = credentials.Certificate(certificate_path)
 		firebase_admin.initialize_app(cred)
 
+
 	def send_topic_message(self, topic, message):
+		
+		if isinstance(message, str):
+
+			message = json.loads(message)
+
+		notification_data = message.get("notification", {})
+		notification = None
+
+		if notification_data:
+
+			notification = messaging.Notification(
+
+                title=notification_data.get("title", ""),
+
+                body=notification_data.get("body", ""),
+
+            )
+
 		message = messaging.Message(
-			data=message,
+			notification=notification,
 			topic=topic,
 		)
 		return messaging.send(message)
+
+# Copyright (c) 2025, Wahni IT Solutions and contributors
+# For license information, please see license.txt
