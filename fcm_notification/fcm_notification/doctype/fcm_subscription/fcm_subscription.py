@@ -7,13 +7,14 @@ import firebase_admin
 from firebase_admin import credentials, messaging, exceptions
 from fcm_notification.firebase_admin_client import get_firebase_app
 
-app = get_firebase_app()
-
 class FCMSubscription(Document):
 	def validate(self):
 		user_token = get_selected_users_tokens(self)
 
+		app = get_firebase_app()
+
 		subscribe_to_topic(user_token, self.topic)
+
 
 
 def subscribe_to_topic(token_or_list, topic_name):
