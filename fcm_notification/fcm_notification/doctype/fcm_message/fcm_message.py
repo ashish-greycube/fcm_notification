@@ -9,12 +9,15 @@ from frappe.utils import now
 
 from fcm_notification.utils import FCMNotification
 
-fcm = FCMNotification()
+
 class FCMMessage(Document):
 	def validate(self):
 		self.notification_time = now()
 
 	def before_submit(self):
+
+		fcm = FCMNotification()
+
 		message = json.loads(self.message)
 		
 		self.response = fcm.send_topic_message(self.topic, message)
