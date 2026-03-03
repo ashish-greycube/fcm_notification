@@ -33,6 +33,9 @@ class FCMNotification:
 			message = json.loads(message)
 
 		notification_data = message.get("notification", {})
+
+		data_payload = message.get("data", {})
+
 		notification = None
 
 		if notification_data:
@@ -43,10 +46,13 @@ class FCMNotification:
 
                 body=notification_data.get("body", ""),
 
+				image=notification_data.get("image","")
+
             )
 
 		message = messaging.Message(
 			notification=notification,
+			data=data_payload,
 			topic=topic,
 		)
 		return messaging.send(message)
