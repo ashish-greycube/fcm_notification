@@ -7,7 +7,8 @@
  "field_order": [
   "topic",
   "column_break_arnr",
-  "fcm_user"
+  "fcm_user",
+  "fcm_subscription_error_log"
  ],
  "fields": [
   {
@@ -28,11 +29,19 @@
    "label": "FCM User",
    "options": "FCM User Multi",
    "reqd": 1
+  },
+  {
+   "fieldname": "fcm_subscription_error_log",
+   "fieldtype": "Link",
+   "label": "FCM Subscription Error Log",
+   "no_copy": 1,
+   "options": "Error Log",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2026-02-23 15:37:42.538208",
+ "modified": "2026-02-24 09:58:27.283623",
  "modified_by": "Administrator",
  "module": "FCM Notification",
  "name": "FCM Subscription",

@@ -13,18 +13,22 @@ class FCMSubscription(Document):
 
 		app = get_firebase_app()
 
-		subscribe_to_topic(user_token, self.topic)
+		subscribe_to_topic(self, user_token, self.topic)
 
 
 
-def subscribe_to_topic(token_or_list, topic_name):
+def subscribe_to_topic(self, token_or_list, topic_name):
 	"""Subscribes one or more FCM registration tokens to a topic."""
 	try:
         # messaging.subscribe_to_topic accepts a string (single) or list (multiple)
 		response = messaging.subscribe_to_topic(token_or_list, topic_name)
-		print(f"Successfully subscribed {response.success_count} tokens to {topic_name}", "="*100)
-	except exceptions.FirebaseError as e:
-		print(e, "="*100)
+		print(f"Successfully subscribed {response.success_count} tokens to {topic_name}")
+	except Exception as e:
+		log = frappe.log_error(
+        	title="Subscription Error",
+        	message=f"Error: {e}"
+    	)
+		self.fcm_subscription_error_log = log.name
 
 
 def get_selected_users_tokens(self):
